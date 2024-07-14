@@ -1,0 +1,93 @@
+
+<div class=" main flex flex-col min-vh-100">
+
+    <nav class="color text-center py-3">
+      <h1 class=" fs-2 font-bold">Customer Dashboard</h1>
+    </nav>
+
+  <main class="d-flex gap-6 justify-content-center  align-items-center ">
+    <div class="rounded-lg shadow-lg overflow-hidden w-100">
+    <!-- search block for search by name and by min & max -->
+      <div class="row px-6 py-2 mb-4 border-b align-items-center">
+        <div class="col-12 flex gap-4">
+
+          <input
+          class="h-10 rounded-md border border-input px-3 py-2 my-4 text-sm w-50 mx-auto text-center form-control "
+          type="text"
+          placeholder="Search customers..."
+          [(ngModel)]="term"
+        />
+          <div class="d-flex justify-content-center  align-items-center">
+            <span class="text-white fs-5 mx-3">Transaction Amount:</span>
+            <input
+              class=" px-3 py-2 text-sm  w-15 form-control  "
+              type="number"
+              placeholder="Min"
+              [(ngModel)]="min"
+              value=""
+            (ngModelChange)="reset()"
+            />
+            <input
+              class=" px-3 py-2 text-sm  w-15 form-control mx-3"
+              type="number"
+              placeholder="Max"
+              [(ngModel)]="max"
+              value=""
+
+            (ngModelChange)="reset()"
+            />
+
+            <button class="btn bg-main text-white  px-4 fw-semibold" (click)="filterAmount()">
+              Filter
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+        <table class="w-100 table text-sm text-center">
+
+          <thead class="border-2 border-black">
+            <tr class="">
+              <th class=" bg-sec text-white fs-5">
+                Name
+              </th>
+              <th class=" bg-sec text-white fs-5">
+                Transaction Amount
+              </th>
+              <th class=" bg-sec text-white fs-5">
+                Date
+              </th>
+            </tr>
+          </thead>
+          <tbody class="">
+            <!-- display as a default without determine a ring of amount  of transactions -->
+            <ng-container *ngIf="!bool">
+
+            <tr *ngFor="let trans of transactions">
+              <ng-container *ngFor="let customer of customers |filter:term">
+              <ng-container *ngIf="customer.id==trans.customer_id" >
+                <td role="button" [routerLink]="['/customer',customer.id]">{{customer.name}}</td>
+                <td >{{trans.amount}}</td>
+                <td>{{trans.date}}</td>
+              </ng-container>
+              </ng-container>
+            </tr>
+          </ng-container>
+           <!-- display only when determine a ring of amount  of transactions -->
+            <ng-container *ngIf="bool">
+            <tr *ngFor="let trans of transactions|amountTransaction:min:max">
+              <ng-container *ngFor="let customer of customers |filter:term">
+              <ng-container *ngIf="customer.id==trans.customer_id" >
+                <td role="button" [routerLink]="['/customer',customer.id]">{{customer.name}}</td>
+                <td >{{trans.amount}}</td>
+                <td>{{trans.date}}</td>
+              </ng-container>
+              </ng-container>
+            </tr>
+          </ng-container>
+          </tbody>
+        </table>
+    </div>
+  </main>
+</div>
