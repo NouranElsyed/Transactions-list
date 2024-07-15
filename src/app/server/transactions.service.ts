@@ -9,13 +9,13 @@ export class TransactionsService {
 
   constructor(private _HttpClient:HttpClient) {}
 
-  baseUrl:string =`http://localhost:3000/`
-  // http://localhost:3000/transactions`
+  baseUrl:string =`https://nouranelsyed.github.io/api/db.json`
+
   getCustomers():Observable<any>{
-    return this._HttpClient.get(this.baseUrl+`customers`)
+    return this._HttpClient.get(this.baseUrl)
   }
   getTransactions():Observable<any>{
-    return this._HttpClient.get(this.baseUrl+`transactions`)
+    return this._HttpClient.get(this.baseUrl)
   }
 }
 

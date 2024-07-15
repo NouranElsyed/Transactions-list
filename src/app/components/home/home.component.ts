@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit{
     this._TransactionsService.getCustomers().subscribe({
       next:(response)=>{
         console.log(response);
-        this.customers =response;
+        this.customers =response.customers;
       }
     })
   //calling for transactions data
@@ -32,7 +32,7 @@ export class HomeComponent implements OnInit{
       this._TransactionsService.getTransactions().subscribe({
         next:(response)=>{
           console.log(response);
-          this.transactions =response;
+          this.transactions =response.transactions;
         }
       })
 

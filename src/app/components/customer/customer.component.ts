@@ -31,7 +31,7 @@ export class CustomerComponent implements OnInit{
     //function to take the data of the customer who selected.
     this._TransactionsService.getCustomers().subscribe({
       next:(response)=>{
-        this.customers =response;
+        this.customers =response.customers ;
           for(let i =0; i<this.customers.length;i++){
               const id = Number (this.customerId);
                 if(this.customers[i].id== id){
@@ -49,7 +49,7 @@ export class CustomerComponent implements OnInit{
       this._TransactionsService.getTransactions().subscribe({
         next:(response)=>{
 
-          this.transactions =response;
+          this.transactions =response.transactions;
           for(let i =0; i<this.transactions.length;i++){
             const id = Number (this.customerId);
             if(this.transactions[i].customer_id== id){
